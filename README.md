@@ -44,5 +44,5 @@ GNU GPL
 
 
 ## TODO : 
-- Convert the script in go-lang, so this could be used on any platform
+- Convert the script to go-lang, so this could be used on any platform
 
