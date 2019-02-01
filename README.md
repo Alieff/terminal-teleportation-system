@@ -2,47 +2,71 @@
 
 move/cd to to your file destination quicker
 
-## Usage : 
-1. Specify an empty folder path, it will be used to store the data
+## Installation
 
-    `TELEPORTATION_SYSTEM_DB_PATH="<enter the path here>"`
+1. execute 
 
-2. Create a `context`
+    ``bash install.sh``
 
-    `put_context <choose_a_name>`
+## Usage / Workflow : 
+1. Create a `portal group`. ("portal group" is like category that contain a set of portal)
 
-3. Use a `context`
+    `new_portal_group <choose_a_name> <index>`
 
-    `use_context <your_choosen_name>`
+    example
 
-4. Bookmark a location
+    `new_portal_group project 1`
 
-    `bookmark 1`
+3. Use a `portal group`
+
+    `portal_group <index> <set_global:optional>`
+
+    example
+    
+    `portal_group 1 yes`
+
+4. Bookmark a location. (save current path)
+
+    `bookmark <index>`
+    or 
+    `mark <index>`
+
+    example
+
+    `mark 2`
 
     (you can bookmark more than one place by just specifying the number)
 
 5. Go to your bookmarked location using `teleport`
 
-    `teleport 1`
+    `teleport <index>`
 
-## Additional Usage :
+    example
+    
+    `teleport 2`
 
-1. blist : show list of bookmarked path
-2. clist : show list of created context
-3. clean_context_database : clear context database
-4. context : see help
+## Other Comman: 
 
-## Installation :
+1. Show help
 
-1. Downlod teleportation_system.sh
-2. add this line into your `bashrc` 
+    `teleportation_system`
 
-    `source  <your-path>/teleportation_system.vim`
+2. Show all portal group
+
+    `portal_group`
+
+3. Show all portal
+
+    `teleport`
+
+4. Clear all portal
+
+    `portal_clear`
+
 
 ## License : 
 GNU GPL
 
 
 ## TODO : 
-- Convert the script to go-lang, so this could be used on any platform
-
+- Convert the script to go-lang, so this library could be used on any OS
