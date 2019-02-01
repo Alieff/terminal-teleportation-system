@@ -5,9 +5,9 @@ TELEPORTATION_SYSTEM_DB_PATH="$HOME/Documents/.script/database"
 
 # melist command fitur "TELEPORTATION" dan melihat konteks sekarang
 # untuk menggunakan fitur "TELEPORTATION", harus buat folder 
-function context(){
+function teleportation_system(){
   echo "-----------------------CONTEXT MANAGER"
-  echo "put_portal_group <nama_context> <index>"
+  echo "new_portal_group <nama_context> <index>"
   echo "portal_group <index> <set_global:optional>"
   echo "clean_portal_group"
   echo "-----------------------TELEPORTER"
@@ -25,8 +25,8 @@ function context(){
 }
 
 # membuat konteks baru 
-# cara pakai : `put_portal_group _nama_konteks(string)_`
-function put_portal_group(){
+# cara pakai : `new_portal_group _nama_konteks(string)_`
+function new_portal_group(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
