@@ -7,16 +7,13 @@ TELEPORTATION_SYSTEM_DB_PATH="$HOME/Documents/.script/database"
 # untuk menggunakan fitur "TELEPORTATION", harus buat folder 
 function context(){
   echo "-----------------------CONTEXT MANAGER"
-  echo "put_context <nama_context> <index>"
-  echo "clist"
-  echo "get_context"
-  echo "use_context <index> <set_global:optional>"
-  echo "clean_context_database"
+  echo "put_portal_group <nama_context> <index>"
+  echo "portal_group <index> <set_global:optional>"
+  echo "clean_portal_group"
   echo "-----------------------TELEPORTER"
-  echo "bookmark"
-  echo "blist"
-  echo "bclear"
+  echo "bookmark/mark"
   echo "teleport"
+  echo "portal_clear"
 
   global_context=$(cat $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT)
   # echo $(cat $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT)
@@ -28,27 +25,28 @@ function context(){
 }
 
 # membuat konteks baru 
-# cara pakai : `put_context _nama_konteks(string)_`
-function put_context(){
+# cara pakai : `put_portal_group _nama_konteks(string)_`
+function put_portal_group(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
   list_manager $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT $1 $2 
   touch $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$1
 }
-alias clist="cat -n $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT"
+# alias portal_group="cat -n $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT"
 # alias cclear="echo > $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT; 
 # rm $TELEPORTATION_SYSTEM_DB_PATH/teleporter_*'
 
 
 # mengguks yang sudah ada 
-# cara pakai : `use_context _nama_konteks(string)_`
-function use_context(){
+# cara pakai : `portal_group _nama_konteks(string)_`
+function portal_group(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
   if [ "$#" -lt 1 ]; then
-    local num=1
+    cat -n $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT
+    return
   else
     local num=$1
   fi
@@ -60,13 +58,14 @@ function use_context(){
   fi
   echo "context \"$local_context\" telah siap"
 }
+alias use_portal_group='portal_group'
+alias portal_group_use='portal_group'
 
 # function set_global_context(){
 # if [ -z $context ]; then context=$(cat $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT); fi
-
 # membersihkan database context
-# cara pakai : `clean_context_database`
-function clean_context_database(){
+# cara pakai : `clean_portal_group`
+function clean_portal_group(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
@@ -91,14 +90,21 @@ function bookmark(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
+  # echo $TELEPORTATION_SYSTEM_DB_PATH
   local path=$(pwd | sed 's/\//\\\//g') 
+  # echo $path
   #echo $path
-  list_manager $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$global_context "$path" $1
+  if [ ! -z "$local_context" ]; then
+    list_manager $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$local_context "$path" $1
+  else
+    list_manager $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$global_context "$path" $1
+  fi
 }
+alias mark='bookmark'
 
 # melihat daftar path pada current context
-# cara pakai : `blist`
-function blist(){
+# cara pakai : `portal`
+function t_portal_list(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
@@ -117,14 +123,15 @@ function blist(){
 }
 alias bclear="echo > $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$context"
 
-# cd ke path yang ada di blist 
-# cara pakai : `teleport 2`, cd ke path yang ada di index ke 2 pada blist
+# cd ke path yang ada di portal 
+# cara pakai : `teleport 2`, cd ke path yang ada di index ke 2 pada portal
 function teleport(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
   if [ "$#" -ne 1 ]; then
-    local num=1
+    t_portal_list
+    return
   else
     local num=$1
   fi
@@ -138,6 +145,11 @@ function teleport(){
   fi
 
 
+  echo "<<....poof...>>"
+  echo ".......||......"
+  echo ".......||......"
+  echo ".......||......"
+  echo "<<....poof...>>"
   cd "$path"
 
 }
