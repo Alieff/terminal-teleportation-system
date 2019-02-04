@@ -7,40 +7,41 @@ TELEPORTATION_SYSTEM_DB_PATH="$HOME/Documents/.script/database"
 # untuk menggunakan fitur "TELEPORTATION", harus buat folder 
 function teleportation_system(){
   echo "-----------------------CONTEXT MANAGER"
-  echo "new_portal_group <nama_context> <index>"
-  echo "portal_group <index> <set_global:optional>"
-  echo "clean_portal_group"
+  echo "platform <index> <set_global:optional>"
+  echo "platform_use <index>"
+  echo "platform_new <nama_context> <index>"
+  echo "platform_clean"
   echo "-----------------------TELEPORTER"
   echo "bookmark/mark"
   echo "teleport"
-  echo "portal_clear"
+  echo "teleport_clear"
 
   global_context=$(cat $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT)
   # echo $(cat $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT)
-  if [ ! -z "$local_context" ]; then
-    cat -n $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$local_context
-  else
-    cat -n $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$global_context
-  fi
+  # if [ ! -z "$local_context" ]; then
+  #   cat -n $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$local_context
+  # else
+  #   cat -n $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$global_context
+  # fi
 }
 
 # membuat konteks baru 
-# cara pakai : `new_portal_group _nama_konteks(string)_`
-function new_portal_group(){
+# cara pakai : `platform_new _nama_konteks(string)_`
+function platform_new(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
   list_manager $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT $1 $2 
   touch $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$1
 }
-# alias portal_group="cat -n $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT"
+# alias platform="cat -n $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT"
 # alias cclear="echo > $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT; 
 # rm $TELEPORTATION_SYSTEM_DB_PATH/teleporter_*'
 
 
 # mengguks yang sudah ada 
-# cara pakai : `portal_group _nama_konteks(string)_`
-function portal_group(){
+# cara pakai : `platform _nama_konteks(string)_`
+function platform(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
@@ -58,14 +59,14 @@ function portal_group(){
   fi
   echo "context \"$local_context\" telah siap"
 }
-alias use_portal_group='portal_group'
-alias portal_group_use='portal_group'
+alias use_platform='platform'
+alias platform_use='platform'
 
 # function set_global_context(){
 # if [ -z $context ]; then context=$(cat $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT); fi
 # membersihkan database context
-# cara pakai : `clean_portal_group`
-function clean_portal_group(){
+# cara pakai : `platform_clean`
+function platform_clean(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
@@ -104,7 +105,7 @@ alias mark='bookmark'
 
 # melihat daftar path pada current context
 # cara pakai : `portal`
-function t_portal_list(){
+function t_teleport_list(){
   if [ ! -d "$TELEPORTATION_SYSTEM_DB_PATH" ]; then
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
@@ -130,7 +131,7 @@ function teleport(){
     mkdir -p "$TELEPORTATION_SYSTEM_DB_PATH";
   fi
   if [ "$#" -ne 1 ]; then
-    t_portal_list
+    t_teleport_list
     return
   else
     local num=$1
