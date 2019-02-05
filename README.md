@@ -70,3 +70,8 @@ GNU GPL
 
 ## TODO : 
 - Convert the script to go-lang, so this library could be used on any OS
+
+## Contribution
+
+Found bugs, want to contribute, etc?, 
+contact me : serdralfs@gmail.com
