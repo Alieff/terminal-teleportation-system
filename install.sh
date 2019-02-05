@@ -8,6 +8,8 @@ if [[ -z "$(ls $HOME/Documents/.script | grep teleportation_system\.sh)" ]]; the
   # copy source
   "cp" "$installer_path/teleportation_system.sh" "$destination_path"
   echo "Copying done" : "cp $installer_path/teleportation_system.sh" "$destination_path"
+  # source script
+  source $HOME/Documents/.script/teleportation_system.sh
 else # case if already installed
   echo 
   echo "Teleportation system executable is already exist"
