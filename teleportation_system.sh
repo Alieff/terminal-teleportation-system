@@ -3,6 +3,14 @@
 
 TELEPORTATION_SYSTEM_DB_PATH="$HOME/Documents/.script/database"
 
+#------ preparation
+if [ ! -f $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT ]; then
+  touch $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT
+fi
+if [ ! -f $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT ]; then
+  touch $TELEPORTATION_SYSTEM_DB_PATH/teleporter_CONTEXT
+fi
+
 # melist command fitur "TELEPORTATION" dan melihat konteks sekarang
 # untuk menggunakan fitur "TELEPORTATION", harus buat folder 
 function teleportation_system(){
