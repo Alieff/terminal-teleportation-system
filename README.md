@@ -2,6 +2,10 @@
 
 move/cd to to your file destination quicker
 
+## Dependency
+
+1. bash-extension
+
 ## Installation
 
 1. execute 
@@ -45,7 +49,7 @@ move/cd to to your file destination quicker
     
     `teleport 2`
 
-## Other Comman: 
+## Other Command: 
 
 1. Show help
 
