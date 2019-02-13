@@ -120,7 +120,7 @@ function t_teleport_list(){
   global_context=$(cat $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT)
   # echo $(cat $TELEPORTATION_SYSTEM_DB_PATH/teleporter_GLOBAL_CONTEXT)
 
-  if [ -z $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$global_context ]; then 
+  if [ ! -f $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$global_context ] && [ ! -f $TELEPORTATION_SYSTEM_DB_PATH/teleporter_$local_context ]; then 
     echo "context global / local belum di set"
   else
     if [ ! -z "$local_context" ]; then
